@@ -1,0 +1,40 @@
+<form class="row g-3 mt-5" method="POST" action="/expenses/{{expense._id}}/edit?_method=PUT">
+  <div class="mx-auto  col-sm-6">
+    <div class="text-center">
+      <h3>請修改你的支出</h3>
+    </div>
+    <small class="ms-5">*為必填欄位</small>
+    {{!-- 選單 --}}
+    <div class="row mt-5">
+      <div class="col-md-5 ms-5">
+        <label for="name" class="form-label">名稱*</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{expense.name}}"required>
+      </div>
+      <div class="col-md-5">
+        <label for="date" class="form-label">日期*</label>
+        <input type="date" class="form-control" id="date" name="date" value="{{expense.date}}"required>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-5 ms-5">
+        <label for="category" class="form-label">類別*</label>
+        <select id="category" class="form-select" name="category" required>
+          <option selected disabled hidden>類別</option>
+          <option value="1" {{#if isSelected.dailyliving}} selected{{/if}}>家居物業</option>
+          <option value="2"{{#if isSelected.transportation}} selected{{/if}}>交通出行</option>
+          <option value="3"{{#if isSelected.entertainment}} selected{{/if}}>休閒娛樂</option>
+          <option value="4"{{#if isSelected.food}} selected{{/if}}>餐飲食品</option>
+          <option value="5"{{#if isSelected.others}} selected{{/if}}>其他</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <label for="amount" class="form-label">金額*</label>
+        <input type="number" class="form-control" id="amount" name="amount" value="{{expense.amount}}"required>
+      </div>
+    </div>
+  </div>
+  {{!-- 新增按鈕 --}}
+  <div class="text-center mt-5 ">
+    <button class="btn btn-lg" style="background: tomato; color:white" type="submit">送出</button>
+  </div>
+</form>

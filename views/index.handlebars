@@ -1,0 +1,66 @@
+{{!-- category dropdown --}}
+<div class="dropdown">
+  <div class="row">
+  <a  class="btn btn-secondary col-sm-4 mx-auto mt-5 border dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    類別
+  </a>
+  <ul class="dropdown-menu col-sm-4 mx-auto " aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="/category/家居物業">家居物業</a></li>
+    <li><a class="dropdown-item" href="/category/交通出行">交通出行</a></li>
+    <li><a class="dropdown-item" href="/category/休閒娛樂">休閒娛樂</a></li>
+    <li><a class="dropdown-item" href="/category/餐飲食品">餐飲食品</a></li>
+    <li><a class="dropdown-item" href="/category/其他">其他</a></li>
+  </ul>
+  </div>
+</div>
+{{!-- totalAmount --}}
+<div class="row">
+  <div class="col-sm-4 mt-5 mx-auto">
+    <div class="row">
+      <div class="col-3 fs-5"><span>總金額：</span></div>
+      <div class="col-9 text-center total-amount">25620</div>
+    </div>  
+  </div>
+</div>
+
+{{!-- expense list --}}
+<div class="row">
+  <div class="col-sm-6 mt-5 mx-auto">
+   <ul class="list-group expense-list">
+  {{#each expenses}}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    {{!-- 支出 --}}
+    <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
+      {{!-- 名稱 --}}
+     <div class="d-flex justify-content-start align-items-center">
+      <div>
+      <span style="color: #72a4d4">
+        <i class="fa-solid {{this.icon}}  fa-2xl"></i>
+      </span>
+      </div>
+      <div class="p-2 ">
+      <h5>{{this.name}}</h5>
+      <span class="fs-6 fw-lighter">{{this.date}}</span>
+      </div>
+     </div>
+     {{!-- 金額 --}}
+      <div>
+        <span>{{this.amount}}</span>
+      </div>
+    </div>
+    {{!-- 按鈕 --}}
+     <div class="ms-5">
+      <a class="btn" href="/expenses/{{this._id}}/edit" role="button" style="background: #72a4d4; color:white">修改</a>
+      <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE"><button type="submit" class="btn btn-secondary">刪除</button></form>
+    </div>
+    </li>
+    {{/each}}
+   </ul>
+ </div>
+</div>
+
+{{!-- 新增按鈕 --}}
+<div class="text-center mt-5">
+    <a class="btn btn-lg" href="/expenses/new" role="button" style="background: tomato; color:white">新增支出</a>
+</div>  

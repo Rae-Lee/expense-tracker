@@ -1,0 +1,8 @@
+.total-amount{
+  color: tomato;
+  font-size: 1.2cm
+}
+
+ul.expense-list>li:nth-of-type(odd) {
+  background-color: #f3f4f5;
+}
