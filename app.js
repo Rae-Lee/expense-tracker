@@ -12,7 +12,36 @@ const methodOverride = require('method-override')
 require('./config/mongoose')
 
 const port = process.env.PORT
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}))
+app.engine('handlebars', exphbs.engine({
+  defaultLayout: 'main', 
+  helpers: {
+    //格式化時間
+    dateTransform(date){
+      let formatted_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
+      return formatted_date
+    },
+     //顯示類別的icon
+    getIcon(categoryId){
+      switch(categoryId){
+        case 1:
+          return 'fa-house'
+          break;
+        case 2:
+          return 'fa-van-shuttle'
+          break;
+        case 3:
+          return 'fa-face-grin-beam'
+          break;
+        case 4:
+          return 'fa-utensils'
+          break;
+        case 5:
+          return 'fa-pen'
+          break;  
+      }
+    }
+  }
+}))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))

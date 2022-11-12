@@ -5,19 +5,36 @@ const Category = require('../../models/category')
 //篩選類別
 router.get('/category/:category', (req, res) => {
   const name = req.params.category
+  const userId = req.user._id
   Category.findOne({name})
     .then(category => {
-      category.id
+      Record.find({userId, categoryId: category.id})
+        .then(expenses => {
+          //計算總金額
+          let totalAmount = 0
+          for (let i = 0; i < expenses.length; i++) {
+            totalAmount += expenses[i].amount
+          }
+          res.render('index', { expenses, totalAmount })
+        })
+        .catch(err => console.log(err))
     })
-  
-
-
+    .catch(err => console.log(err))
 })
 //首頁頁面
 router.get('/', (req, res) => {
   const userId = req.user._id
   Record.find({userId})
-  res.render('index')
+  .lean()
+  .then(expenses => {
+    //計算總金額
+    let totalAmount = 0
+    for(let i = 0; i < expenses.length; i++){
+      totalAmount += expenses[i].amount
+    }
+    res.render('index', {expenses, totalAmount})
+  })
+  .catch(err => console.log(err))
 })
 
 module.exports = router

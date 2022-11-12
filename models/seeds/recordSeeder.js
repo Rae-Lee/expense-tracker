@@ -74,6 +74,7 @@ db.once('open', () => {
   )  
   .then(() => {
     console.log('user collection have created')
+    process.exit()
   })
   .catch(err => {
     console.log(err)

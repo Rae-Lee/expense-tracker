@@ -36,12 +36,12 @@
      <div class="d-flex justify-content-start align-items-center">
       <div>
       <span style="color: #72a4d4">
-        <i class="fa-solid {{this.icon}}  fa-2xl"></i>
+        <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
       </span>
       </div>
-      <div class="p-2 ">
+      <div class="px-3 ">
       <h5>{{this.name}}</h5>
-      <span class="fs-6 fw-lighter">{{this.date}}</span>
+      <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
       </div>
      </div>
      {{!-- 金額 --}}
@@ -50,9 +50,9 @@
       </div>
     </div>
     {{!-- 按鈕 --}}
-     <div class="ms-5">
+     <div class="ms-5 d-flex ">
       <a class="btn" href="/expenses/{{this._id}}/edit" role="button" style="background: #72a4d4; color:white">修改</a>
-      <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE"><button type="submit" class="btn btn-secondary">刪除</button></form>
+      <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button type="submit" class="btn btn-secondary">刪除</button></form>
     </div>
     </li>
     {{/each}}
