@@ -13,7 +13,14 @@
 <body>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">家庭記帳本</a>
+      <a class="navbar-brand px-3" href="/">家庭記帳本</a>
+      {{#if isAuthenticated}}
+      {{user.name}}你好
+      <a class="btn btn-light mx-5" href="/">首頁</a>
+      <a class="btn btn-outline-secondary" href="/users/logout">登出</a>
+      {{else}}
+      <a class="btn btn-outline-secondary mx-3" href="/users/login">登入</a>
+      {{/if}}
     </div>
   </nav>
   <div class="container">
