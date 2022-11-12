@@ -14,6 +14,7 @@ const port = process.env.PORT
 app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 app.use(router)
 app.use(session({
   secret: process.env.SECRET,
@@ -21,6 +22,16 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated  
+  res.locals.user = req.user
+  next()
+})
+app.use((req, res, next) => {
+  res.locals.warning_msg = req.flash('warning_msg')
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('error')
+  next()
+})
 app.use(methodOverride('_method'))
-app.use(express.urlencoded({extended: true}))
 app.listen(port, () => {console.log(`It is listening on http://localhost:${port}/`)})
