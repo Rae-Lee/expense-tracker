@@ -51,8 +51,10 @@ router.post('/login', passport.authenticate('local', {failureRedirect:'/users/lo
 
 //登出
 router.get('/logout', (req, res) => {
-  req.logout()
-  res.flash('success_msg', '已經成功登出!')
-  res.redirect('/users/login')
+  req.logout((err) => {
+    if(err){console.log(err)}
+    req.flash('success_msg', '已經成功登出!')
+    res.redirect('/users/login')
+  }) 
 })
 module.exports = router

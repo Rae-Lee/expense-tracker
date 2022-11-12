@@ -17,7 +17,15 @@ app.engine('handlebars', exphbs.engine({
   helpers: {
     //格式化時間
     dateTransform(date){
-      let formatted_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
+      let Date = date.getDate()
+      let Month = date.getMonth() + 1
+      if(Date < 10){
+        Date = '0' + Date
+      }
+      if(Month < 10){
+        Month = '0' + Month
+      }
+      let formatted_date = date.getFullYear() + "-" + Month + "-" + Date
       return formatted_date
     },
      //顯示類別的icon

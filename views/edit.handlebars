@@ -12,13 +12,13 @@
       </div>
       <div class="col-md-5">
         <label for="date" class="form-label">日期*</label>
-        <input type="date" class="form-control" id="date" name="date" value="{{expense.date}}"required>
+        <input type="date" class="form-control" id="date" name="date" value="{{dateTransform expense.date}}"required>
       </div>
     </div>
     <div class="row mt-5">
       <div class="col-md-5 ms-5">
         <label for="category" class="form-label">類別*</label>
-        <select id="category" class="form-select" name="category" required>
+        <select id="category" class="form-select" name="categoryId" required>
           <option selected disabled hidden>類別</option>
           <option value="1" {{#if isSelected.dailyliving}} selected{{/if}}>家居物業</option>
           <option value="2"{{#if isSelected.transportation}} selected{{/if}}>交通出行</option>

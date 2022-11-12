@@ -6,9 +6,10 @@ const Category = require('../../models/category')
 router.get('/category/:category', (req, res) => {
   const name = req.params.category
   const userId = req.user._id
-  Category.findOne({name})
+  return Category.findOne({name})
     .then(category => {
       Record.find({userId, categoryId: category.id})
+        .lean()
         .then(expenses => {
           //計算總金額
           let totalAmount = 0
@@ -24,7 +25,7 @@ router.get('/category/:category', (req, res) => {
 //首頁頁面
 router.get('/', (req, res) => {
   const userId = req.user._id
-  Record.find({userId})
+ return Record.find({userId})
   .lean()
   .then(expenses => {
     //計算總金額
