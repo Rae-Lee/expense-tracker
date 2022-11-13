@@ -4,10 +4,10 @@ if(process.env.NODE_ENV !== 'production'){
   const dotenv = require('dotenv').config()
 }
 const exphbs = require('express-handlebars')
+const flash = require('connect-flash')
 const router = require('./routes')
 const session = require('express-session')
 const usePassport = require('./config/passport')
-const flash = require('connect-flash')
 const methodOverride = require('method-override')
 require('./config/mongoose')
 

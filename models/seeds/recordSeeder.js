@@ -16,31 +16,31 @@ const SEED_USER = [{
 const SEED_RECORD = [
   {
     name: '午餐',
-    date: '2022-4-23',
+    date: '2022-11-14',
     amount: 60,
     categoryId: 4
   },
   {
     name: '晚餐',
-    date: '2022-4-23',
+    date: '2022-11-14',
     amount: 60,
     categoryId: 4
   },
   {
     name: '捷運',
-    date: '2022-4-24',
+    date: '2022-11-13',
     amount: 120,
     categoryId: 2
   },
   {
     name: '租金',
-    date: '2022-4-1',
+    date: '2022-11-15',
     amount: 25000,
     categoryId: 1
   },
   {
     name: '電影:驚奇隊長',
-    date: '2022-4-23',
+    date: '2022-11-14',
     amount: 60,
     categoryId: 3
   }]

@@ -4,7 +4,8 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 // 建立頁面
 router.get('/new', (req, res) => {
-  res.render('new')
+  res.render('new'
+  )
 })
 //編輯頁面
 router.get('/:id/edit', (req, res) => {
