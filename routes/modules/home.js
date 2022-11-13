@@ -8,17 +8,29 @@ router.get('/category/:category', (req, res) => {
   const userId = req.user._id
   const startMonth = new Date(new Date(new Date().setDate(1)).setHours(0, 0, 0))
   const endMonth = new Date(new Date(new Date().setDate(31)).setHours(23, 59, 59))
+  const month = new Date().getMonth() + 1
   return Category.findOne({name})
     .then(category => {
       Record.find({userId, categoryId: category.id, date: {$gte: startMonth, $lte: endMonth}})
         .lean()
         .then(expenses => {
-          //計算總金額
+          //計算該類別總金額
           let totalAmount = 0
+          let monthAmount = 0
           for (let i = 0; i < expenses.length; i++) {
             totalAmount += expenses[i].amount
           }
-          res.render('index', { expenses, totalAmount, name })
+          //計算當月總花費
+          Record.find({ userId, date: { $gte: startMonth, $lte: endMonth }})
+            .then(records => {
+              for(let i = 0; i < records.length; i++){
+                monthAmount += records[i].amount
+              }
+            })
+            .then(() => {
+              return res.render('index', { expenses, totalAmount, monthAmount, name, month })
+            })
+            .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
     })

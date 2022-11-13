@@ -22,6 +22,10 @@
       <div class="col-3 fs-5"><span>總金額：</span></div>
       <div class="col-9 text-center total-amount">{{totalAmount}}</div>
     </div>
+    <div class="row mt-3">
+      <div class="col-3 fs-5"><span>當月總支出：</span></div>
+      <div class="col-9 text-center total-amount">{{monthAmount}}</div>
+    </div>
   </div>
 </div>
 
@@ -29,6 +33,7 @@
 <div class="row">
   <div class="col-sm-6 mt-5 mx-auto">
     <ul class="list-group expense-list">
+      <li class="list-group-item">{{month}}月份</li>
       {{#each expenses}}
       <li class="list-group-item d-flex justify-content-between align-items-center">
         {{!-- 支出 --}}
