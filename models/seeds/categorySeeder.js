@@ -26,6 +26,9 @@ const SEED_CATEGORY = [
 db.once('open', () => {
   //儲存至category collection
   Category.create(SEED_CATEGORY)
-    .then(() => console.log('category seeds have created'))
+    .then(() => {
+      console.log('category seeds have created')
+      process.exit()
+    })
     .catch(err => console.log(err))
 })
