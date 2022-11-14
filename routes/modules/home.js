@@ -43,8 +43,8 @@ router.get('/', (req, res) => {
   const yesterday = {start: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0)), end: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(23, 59, 59))}
   const tomorrow = {start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0)), end: new Date( new Date(new Date().setDate(new Date().getDate() + 1)).setHours(23, 59, 59))}
   const selectedDate = [today, tomorrow, yesterday]
-  const record = {}
-  const totalAmount = {}
+  const record = []
+  const totalAmount = []
   // 分別篩選今日、明日、昨日的支出
   return Promise.all(
     selectedDate.map((date, index) => {
@@ -56,8 +56,8 @@ router.get('/', (req, res) => {
           for (let i = 0; i < expenses.length; i++) {
             amount += expenses[i].amount
           }
-          totalAmount.index = amount//將當日總金額加入陣列中
-          record.index = expenses//將當日支出加入陣列中
+          totalAmount[index] = amount//將當日總金額加入陣列中
+          record[index] = expenses//將當日支出加入陣列中
         })
         .catch(err => console.log(err))
     })
