@@ -1,7 +1,192 @@
+{{!-- mode switch --}}
+
+  <div class="btn-group mt-5 d-flex justify-content-end me-3 mode" aria-label="Basic radio toggle button group" role="group" >
+    <form method="POST" action="/">
+      <div class="daily">
+        <input type="submit" class="btn-check col-2" name="options" id="option1" autocomplete="off"  role="button" >
+        <label class="btn btn-light {{#if mode}}switch-mode{{/if}}" for="option1" >當日模式</label>
+       </div>
+    </form>
+    <div>
+      <a href="/" class="btn btn-light {{#unless mode}}switch-mode{{/unless}}" role="button" >當月模式</a>
+    </div>
+  </div>
+
+{{#if mode}}
+{{!-- 切換日期 --}}
+<div id="carouselExampleControlsNoTouching" class="carousel carousel-dark  slide" data-bs-touch="false"
+  data-bs-interval="false">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      {{!-- totalAmount --}}
+      <div class="row">
+        <div class="col-sm-4 mt-5 mx-auto">
+          <div class="row">
+            <div class="col-3 fs-5"><span>總金額：</span></div>
+            <div class="col-9 text-center total-amount">{{totalAmount.[0]}}</div>
+          </div>
+        </div>
+      </div>
+      {{!-- today expense list --}}
+      <div class="row">
+        <div class="col-sm-6 mt-5 mx-auto">
+          <ul class="list-group expense-list">
+            <li class="list-group-item">{{dateTransform today.start}}</li>
+            {{#each record.[0]}}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{!-- 支出 --}}
+              <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
+                {{!-- 名稱 --}}
+                <div class="d-flex justify-content-start align-items-center">
+                  <div>
+                    <span style="color: #72a4d4">
+                      <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
+                    </span>
+                  </div>
+                  <div class="px-3 ">
+                    <h5>{{this.name}}</h5>
+                    <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
+                  </div>
+                </div>
+                {{!-- 金額 --}}
+                <div>
+                  <span>{{this.amount}}</span>
+                </div>
+              </div>
+              {{!-- 按鈕 --}}
+              <div class="ms-5 d-flex ">
+                <a class="btn" href="/expenses/{{this._id}}/edit" role="button"
+                  style="background: #72a4d4; color:white">修改</a>
+                <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button
+                    type="submit" class="btn btn-secondary">刪除</button></form>
+              </div>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="carousel-item">
+      {{!-- totalAmount --}}
+      <div class="row">
+        <div class="col-sm-4 mt-5 mx-auto">
+          <div class="row">
+            <div class="col-3 fs-5"><span>總金額：</span></div>
+            <div class="col-9 text-center total-amount">{{totalAmount.[1]}}</div>
+          </div>
+        </div>
+      </div>
+      {{!-- yesterday expense list --}}
+      <div class="row">
+        <div class="col-sm-6 mt-5 mx-auto">
+
+          <ul class="list-group expense-list">
+            <li class="list-group-item">{{dateTransform tomorrow.start}}</li>
+            {{#each record.[1]}}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{!-- 支出 --}}
+              <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
+                {{!-- 名稱 --}}
+                <div class="d-flex justify-content-start align-items-center">
+                  <div>
+                    <span style="color: #72a4d4">
+                      <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
+                    </span>
+                  </div>
+                  <div class="px-3 ">
+                    <h5>{{this.name}}</h5>
+                    <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
+                  </div>
+                </div>
+                {{!-- 金額 --}}
+                <div>
+                  <span>{{this.amount}}</span>
+                </div>
+              </div>
+              {{!-- 按鈕 --}}
+              <div class="ms-5 d-flex ">
+                <a class="btn" href="/expenses/{{this._id}}/edit" role="button"
+                  style="background: #72a4d4; color:white">修改</a>
+                <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button
+                    type="submit" class="btn btn-secondary">刪除</button></form>
+              </div>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      {{!-- totalAmount --}}
+      <div class="row">
+        <div class="col-sm-4 mt-5 mx-auto">
+          <div class="row">
+            <div class="col-3 fs-5"><span>總金額：</span></div>
+            <div class="col-9 text-center total-amount">{{totalAmount.[2]}}</div>
+          </div>
+        </div>
+      </div>
+      {{!-- tomorrow expense list --}}
+      <div class="row">
+        <div class="col-sm-6 mt-5 mx-auto">
+
+          <ul class="list-group expense-list">
+            <li class="list-group-item">{{dateTransform yesterday.start}}</li>
+            {{#each record.[2]}}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{!-- 支出 --}}
+              <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
+                {{!-- 名稱 --}}
+                <div class="d-flex justify-content-start align-items-center">
+                  <div>
+                    <span style="color: #72a4d4">
+                      <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
+                    </span>
+                  </div>
+                  <div class="px-3 ">
+                    <h5>{{this.name}}</h5>
+                    <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
+                  </div>
+                </div>
+                {{!-- 金額 --}}
+                <div>
+                  <span>{{this.amount}}</span>
+                </div>
+              </div>
+              {{!-- 按鈕 --}}
+              <div class="ms-5 d-flex ">
+                <a class="btn" href="/expenses/{{this._id}}/edit" role="button"
+                  style="background: #72a4d4; color:white">修改</a>
+                <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button
+                    type="submit" class="btn btn-secondary">刪除</button></form>
+              </div>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{!-- 切換按鈕 --}}
+  <button class="carousel-control-prev" style="color:#72a4d4" type="button"
+    data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{{else}}
 {{!-- category dropdown --}}
 <div class="dropdown">
   <div class="row">
-  <a  class="btn btn-secondary col-sm-4 mx-auto mt-5 border dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+  <a  class="btn btn-secondary col-sm-4 mx-auto mt-3 border dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
     aria-expanded="false">
    {{#if name}}{{name}}{{else}}類別{{/if}}
   </a>
@@ -14,24 +199,26 @@
   </ul>
   </div>
 </div>
-{{#if name}}
+
 {{!-- totalAmount --}}
 <div class="row">
-  <div class="col-sm-4 mt-5 mx-auto">
+  <div class="col-sm-4 mt-5 mx-auto mb-3">
+    {{#if name}}
     <div class="row">
       <div class="col-3 fs-5"><span>總金額：</span></div>
-      <div class="col-9 text-center total-amount">{{totalAmount}}</div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-3 fs-5"><span>當月總支出：</span></div>
       <div class="col-9 text-center total-amount">{{monthAmount}}</div>
+    </div>
+    {{/if}}
+    <div class="row">
+      <div class="col-3 fs-5"><span>當月總支出：</span></div>
+      <div class="col-9 text-center total-amount">{{totalAmount}}</div>
     </div>
   </div>
 </div>
 
 {{!-- category expense list --}}
 <div class="row">
-  <div class="col-sm-6 mt-5 mx-auto">
+  <div class="col-sm-6 mt-3 mx-auto">
     <ul class="list-group expense-list">
       <li class="list-group-item">{{month}}月份</li>
       {{#each expenses}}
@@ -67,172 +254,9 @@
     </ul>
   </div>
 </div>
-{{else}}
-{{!-- 切換日期 --}}
-<div id="carouselExampleControlsNoTouching" class="carousel carousel-dark  slide" data-bs-touch="false"   data-bs-interval="false">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-{{!-- totalAmount --}}
-<div class="row">
-  <div class="col-sm-4 mt-5 mx-auto">
-    <div class="row">
-      <div class="col-3 fs-5"><span>總金額：</span></div>
-      <div class="col-9 text-center total-amount">{{totalAmount.[0]}}</div>
-    </div>  
-  </div>
-</div>
-{{!-- today expense list --}}
-<div class="row">
-  <div class="col-sm-6 mt-5 mx-auto">
-   <ul class="list-group expense-list">
-    <li class="list-group-item">{{dateTransform today.start}}</li>
-{{#each record.[0]}}
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    {{!-- 支出 --}}
-    <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
-      {{!-- 名稱 --}}
-     <div class="d-flex justify-content-start align-items-center">
-      <div>
-      <span style="color: #72a4d4">
-        <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
-      </span>
-      </div>
-      <div class="px-3 ">
-      <h5>{{this.name}}</h5>
-      <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
-      </div>
-     </div>
-     {{!-- 金額 --}}
-      <div>
-        <span>{{this.amount}}</span>
-      </div>
-    </div>
-    {{!-- 按鈕 --}}
-     <div class="ms-5 d-flex ">
-      <a class="btn" href="/expenses/{{this._id}}/edit" role="button" style="background: #72a4d4; color:white">修改</a>
-      <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button type="submit" class="btn btn-secondary">刪除</button></form>
-    </div>
-    </li>
-    {{/each}}
-   </ul>
- </div>
-</div>
+{{/if}}
 
-
-</div>
-<div class="carousel-item">
-  {{!-- totalAmount --}}
-  <div class="row">
-    <div class="col-sm-4 mt-5 mx-auto">
-      <div class="row">
-        <div class="col-3 fs-5"><span>總金額：</span></div>
-        <div class="col-9 text-center total-amount">{{totalAmount.[1]}}</div>
-      </div>
-    </div>
-  </div>
-  {{!-- yesterday expense list --}}
-  <div class="row">
-    <div class="col-sm-6 mt-5 mx-auto">
-      
-      <ul class="list-group expense-list">
-        <li class="list-group-item">{{dateTransform tomorrow.start}}</li>
-        {{#each record.[1]}}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          {{!-- 支出 --}}
-          <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
-            {{!-- 名稱 --}}
-            <div class="d-flex justify-content-start align-items-center">
-              <div>
-                <span style="color: #72a4d4">
-                  <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
-                </span>
-              </div>
-              <div class="px-3 ">
-                <h5>{{this.name}}</h5>
-                <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
-              </div>
-            </div>
-            {{!-- 金額 --}}
-            <div>
-              <span>{{this.amount}}</span>
-            </div>
-          </div>
-          {{!-- 按鈕 --}}
-          <div class="ms-5 d-flex ">
-            <a class="btn" href="/expenses/{{this._id}}/edit" role="button"
-              style="background: #72a4d4; color:white">修改</a>
-            <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button type="submit"
-                class="btn btn-secondary">刪除</button></form>
-          </div>
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="carousel-item">
-  {{!-- totalAmount --}}
-  <div class="row">
-    <div class="col-sm-4 mt-5 mx-auto">
-      <div class="row">
-        <div class="col-3 fs-5"><span>總金額：</span></div>
-        <div class="col-9 text-center total-amount">{{totalAmount.[2]}}</div>
-      </div>
-    </div>
-  </div>
-  {{!-- tomorrow expense list --}}
-  <div class="row">
-    <div class="col-sm-6 mt-5 mx-auto">
-
-      <ul class="list-group expense-list">
-        <li class="list-group-item">{{dateTransform yesterday.start}}</li>
-        {{#each record.[2]}}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          {{!-- 支出 --}}
-          <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-3 me-5">
-            {{!-- 名稱 --}}
-            <div class="d-flex justify-content-start align-items-center">
-              <div>
-                <span style="color: #72a4d4">
-                  <i class="fa-solid {{getIcon this.categoryId}}  fa-2xl"></i>
-                </span>
-              </div>
-              <div class="px-3 ">
-                <h5>{{this.name}}</h5>
-                <span class="fs-6 fw-lighter">{{dateTransform this.date}}</span>
-              </div>
-            </div>
-            {{!-- 金額 --}}
-            <div>
-              <span>{{this.amount}}</span>
-            </div>
-          </div>
-          {{!-- 按鈕 --}}
-          <div class="ms-5 d-flex ">
-            <a class="btn" href="/expenses/{{this._id}}/edit" role="button"
-              style="background: #72a4d4; color:white">修改</a>
-            <form method="POST" action="/expenses/{{this._id}}/delete?_method=DELETE" class="mx-3"><button type="submit"
-                class="btn btn-secondary">刪除</button></form>
-          </div>
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-  </div>
-</div>
-</div>
-{{!-- 切換按鈕 --}}
-<button class="carousel-control-prev" style="color:#72a4d4" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-</button>
-</div>
 {{!-- 新增按鈕 --}}
 <div class="text-center mt-5">
   <a class="btn btn-lg" href="/expenses/new" role="button" style="background: tomato; color:white">新增支出</a>
 </div>
-{{/if}}

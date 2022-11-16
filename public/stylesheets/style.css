@@ -13,3 +13,7 @@ ul.expense-list>li:nth-of-type(odd) {
   color: white
 }
 
+.switch-mode{
+  background: #72a4d4;
+  color: white
+}
