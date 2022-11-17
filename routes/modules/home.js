@@ -6,8 +6,8 @@ const Category = require('../../models/category')
 router.get('/category/:category', (req, res) => {
   const name = req.params.category
   const userId = req.user._id
-  const startMonth = new Date(new Date(new Date().setDate(1)).setHours(0, 0, 0))
-  const endMonth = new Date(new Date(new Date().setDate(31)).setHours(23, 59, 59))
+  const startMonth = new Date(new Date(new Date().setDate(1)).setHours(0, 0, 0, 0))
+  const endMonth = new Date(new Date(new Date().setDate(31)).setHours(23, 59, 59, 0))
   const month = new Date().getMonth() + 1
   return Category.findOne({name})
     .then(category => {
@@ -41,9 +41,9 @@ router.get('/category/:category', (req, res) => {
 router.post('/', (req, res) => {
   const mode = req.body.options
   const userId = req.user._id
-  const today = {start: new Date(new Date().setHours(0, 0, 0)), end: new Date(new Date().setHours(23, 59, 59))}
-  const yesterday = {start: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0)), end: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(23, 59, 59))}
-  const tomorrow = {start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0)), end: new Date( new Date(new Date().setDate(new Date().getDate() + 1)).setHours(23, 59, 59))}
+  const today = {start: new Date(new Date().setHours(0, 0, 0, 0)), end: new Date(new Date().setHours(23, 59, 59, 0))}
+  const yesterday = {start: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0)), end: new Date(new Date(new Date().setDate(new Date().getDate() - 1)).setHours(23, 59, 59, 0))}
+  const tomorrow = {start: new Date(new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0)), end: new Date( new Date(new Date().setDate(new Date().getDate() + 1)).setHours(23, 59, 59, 0))}
   const selectedDate = [today, tomorrow, yesterday]
   const record = []
   const totalAmount = []
@@ -71,8 +71,8 @@ router.post('/', (req, res) => {
 //3. 當月模式
 router.get('/', (req, res) => {
   const userId = req.user._id
-  const startMonth = new Date(new Date(new Date().setDate(1)).setHours(0, 0, 0))
-  const endMonth = new Date(new Date(new Date().setDate(31)).setHours(23, 59, 59))
+  const startMonth = new Date(new Date(new Date().setDate(1)).setHours(0, 0, 0, 0))
+  const endMonth = new Date(new Date(new Date().setDate(31)).setHours(23, 59, 59, 0))
   const month = new Date().getMonth() + 1
   return Record.find({ userId, date: { $gte: startMonth, $lte: endMonth } })
     .sort({date: 1})
